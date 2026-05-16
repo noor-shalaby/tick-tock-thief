@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://b3j0l1wrankxw"]
+
+[ext_resource type="Script" uid="uid://dbfvsa1dm88wv" path="res://src/game.gd" id="1_7uq6d"]
+
+[node name="GameManager" type="Control" unique_id=1797797504]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7uq6d")
+
+[node name="UI" type="VBoxContainer" parent="." unique_id=2082391077]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerNameLabel" type="Label" parent="UI" unique_id=1870574803]
+layout_mode = 2
+
+[node name="QuestionLabel" type="Label" parent="UI" unique_id=1799551330]
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="PassBombButton" type="Button" parent="UI" unique_id=2015534284]
+layout_mode = 2
+text = "PASS BOMB"
+
+[node name="CardContainer" type="HBoxContainer" parent="UI" unique_id=659007400]
+layout_mode = 2
+
+[node name="BombTimer" type="Timer" parent="." unique_id=1508934835]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1508617464]
+
+[node name="GameOverOverlay" type="ColorRect" parent="." unique_id=1390497008]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="CenterContainer" type="CenterContainer" parent="GameOverOverlay" unique_id=969929769]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/CenterContainer" unique_id=1039312297]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LoserLabel" type="Label" parent="GameOverOverlay/CenterContainer/VBoxContainer" unique_id=1829243437]
+layout_mode = 2
+text = "PLAYER BLEW UP!"
+
+[node name="PlayAgainButton" type="Button" parent="GameOverOverlay/CenterContainer/VBoxContainer" unique_id=1780612786]
+layout_mode = 2
+text = "Play Again"
+
+[node name="MainMenuButton" type="Button" parent="GameOverOverlay/CenterContainer/VBoxContainer" unique_id=66563313]
+layout_mode = 2
+text = "Main Menu"
+
+[connection signal="pressed" from="UI/PassBombButton" to="." method="_on_pass_bomb_button_pressed"]
+[connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]
+[connection signal="pressed" from="GameOverOverlay/CenterContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="GameOverOverlay/CenterContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
