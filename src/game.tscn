@@ -226,6 +226,7 @@ theme_override_constants/margin_bottom = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2014426298]
 layout_mode = 2
+theme_override_constants/separation = 32
 
 [node name="UI" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2082391077]
 layout_mode = 2
@@ -310,6 +311,7 @@ theme_override_constants/margin_bottom = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/MarginContainer" unique_id=2090692349]
 layout_mode = 2
+theme_override_constants/separation = 32
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1039312297]
 layout_mode = 2
