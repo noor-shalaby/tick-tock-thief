@@ -234,7 +234,6 @@ func explode_bomb():
 	var loser = GameState.players[GameState.current_player_index]
 	
 	# --- TRIGGER THE SHAKE ---
-	# Set to 30 or 40 pixels for a really violent hit
 	shake_strength = 1000.0
 	
 	player_label.hide()
@@ -338,6 +337,7 @@ func _on_card_played(card_type: String):
 	
 	# Refresh the UI immediately so the used card disappears
 	update_card_ui()
+
 
 # Connected to your dynamically generated Card Buttons
 func play_card(card_type: String):
