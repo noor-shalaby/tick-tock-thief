@@ -143,14 +143,34 @@ func explode_bomb():
 	game_over_overlay.show()
 
 # Connected to the PlayAgainButton
+# Connected to the PlayAgainButton
 func _on_play_again_button_pressed():
+	# --- FULL SYSTEM RESET ---
+	
+	# 1. Scrub all player data (Wipe cards, scores, and answer streaks)
+	for player in GameState.players:
+		player["cards"].clear()
+		player["score"] = 0
+		player["correct_answers"] = 0
+		
+	# 2. Refill the question pool from the master list
+	active_questions = master_questions.duplicate()
+	
+	# 3. Reset GameState variables just in case a card was active when it exploded
+	GameState.play_direction = 1 
+	GameState.is_next_turn_double = false 
+	
+	# 4. Reshuffle the players so whoever blew up doesn't always start first
+	GameState.players.shuffle()
+	GameState.current_player_index = 0
+	
+	# -------------------------
+
 	# Hide the overlay and restore the gameplay UI
 	game_over_overlay.hide()
 	pass_bomb_button.show()
 	card_container.show()
 	question_label.show()
-	
-	# Optional: You could shuffle the players array here again if you want!
 	
 	# Kick off a fresh round
 	start_new_round()

@@ -118,7 +118,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_xq6wo")
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 52
 text = "PLAYER BLEW UP!"
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -129,6 +129,10 @@ theme_override_fonts/font = ExtResource("3_xq6wo")
 theme_override_font_sizes/font_size = 40
 text = "LEADERBOARD"
 horizontal_alignment = 1
+
+[node name="Margin2" type="Control" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=499980435]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
 
 [node name="LeaderBoardLabel" type="Label" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1366902452]
 unique_name_in_owner = true
