@@ -80,4 +80,4 @@ func _on_start_game_button_pressed():
 	GameState.current_player_index = 0 
 	
 	# Transition to the main game scene
-	get_tree().change_scene_to_file("res://src/game.tscn")
+	SceneTransition.change_scene("res://src/game.tscn")
