@@ -64,6 +64,114 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4bcji"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uktfx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2hwx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qiocs"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xdrfk"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3j30"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7soy"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aikvj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ns0lu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tqu6b"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [node name="GameManager" type="Control" unique_id=1797797504]
 layout_mode = 3
 anchors_preset = 15
@@ -162,26 +270,30 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.8)
 
-[node name="MarginContainer" type="MarginContainer" parent="GameOverOverlay" unique_id=1567464261]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay" unique_id=946894997]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverOverlay/VBoxContainer" unique_id=1567464261]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/MarginContainer" unique_id=1039312297]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/VBoxContainer/MarginContainer" unique_id=1039312297]
 layout_mode = 2
 
-[node name="Margin" type="Control" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1389573914]
+[node name="Margin" type="Control" parent="GameOverOverlay/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1389573914]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
-[node name="LoserLabel" type="Label" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1829243437]
+[node name="LoserLabel" type="Label" parent="GameOverOverlay/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1829243437]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
@@ -191,18 +303,18 @@ text = "PLAYER BLEW UP!"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="LeaderBoardTitleLabel" type="Label" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1556014512]
+[node name="LeaderBoardTitleLabel" type="Label" parent="GameOverOverlay/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1556014512]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_xq6wo")
 theme_override_font_sizes/font_size = 40
 text = "LEADERBOARD"
 horizontal_alignment = 1
 
-[node name="Margin2" type="Control" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=499980435]
+[node name="Margin2" type="Control" parent="GameOverOverlay/VBoxContainer/MarginContainer/VBoxContainer" unique_id=499980435]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 
-[node name="LeaderBoardLabel" type="Label" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1366902452]
+[node name="LeaderBoardLabel" type="Label" parent="GameOverOverlay/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1366902452]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -212,22 +324,30 @@ theme_override_font_sizes/font_size = 32
 text = "LEADERBOARD"
 horizontal_alignment = 1
 
-[node name="PlayAgainButton" type="Button" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1780612786]
-custom_minimum_size = Vector2(512, 64)
+[node name="PlayAgainButton" type="Button" parent="GameOverOverlay/VBoxContainer" unique_id=1780612786]
+custom_minimum_size = Vector2(512, 100)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("3_xq6wo")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_4bcji")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uktfx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y2hwx")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qiocs")
+theme_override_styles/focus = SubResource("StyleBoxFlat_xdrfk")
 text = "Play Again"
 
-[node name="MainMenuButton" type="Button" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=66563313]
-custom_minimum_size = Vector2(512, 64)
+[node name="MainMenuButton" type="Button" parent="GameOverOverlay/VBoxContainer" unique_id=66563313]
+custom_minimum_size = Vector2(512, 100)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("3_xq6wo")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_g3j30")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a7soy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aikvj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ns0lu")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tqu6b")
 text = "Main Menu"
 
 [node name="BombTimer" type="Timer" parent="." unique_id=1508934835]
@@ -235,6 +355,6 @@ text = "Main Menu"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1508617464]
 
 [connection signal="pressed" from="VBoxContainer/PassBombButton" to="." method="_on_pass_bomb_button_pressed"]
-[connection signal="pressed" from="GameOverOverlay/MarginContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
-[connection signal="pressed" from="GameOverOverlay/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="GameOverOverlay/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="GameOverOverlay/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]

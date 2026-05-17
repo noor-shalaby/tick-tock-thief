@@ -120,9 +120,10 @@ func _on_bomb_timer_timeout():
 func explode_bomb():
 	var loser = GameState.players[GameState.current_player_index]
 	
-	pass_bomb_button.hide()
-	card_container.hide()
+	player_label.hide()
 	question_label.hide()
+	card_container.hide()
+	pass_bomb_button.hide()
 	
 	loser_label.text = loser["name"] + " BLEW UP!"
 	
