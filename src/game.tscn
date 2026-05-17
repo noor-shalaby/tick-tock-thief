@@ -5,6 +5,65 @@
 [ext_resource type="FontFile" uid="uid://dur4q3pm6lysi" path="res://assets/Montserrat-Bold.ttf" id="3_xq6wo"]
 [ext_resource type="FontFile" uid="uid://brs7yw1pesgg2" path="res://assets/Montserrat-Medium.ttf" id="4_kc8ui"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kc8ui"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs6l1"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pk08u"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqvko"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdx1q"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [node name="GameManager" type="Control" unique_id=1797797504]
 layout_mode = 3
 anchors_preset = 15
@@ -23,27 +82,31 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_3msxb")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1748304827]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=846837565]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1748304827]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="UI" type="VBoxContainer" parent="MarginContainer" unique_id=2082391077]
+[node name="UI" type="VBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=2082391077]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="Margin" type="Control" parent="MarginContainer/UI" unique_id=370163829]
+[node name="Margin" type="Control" parent="VBoxContainer/MarginContainer/UI" unique_id=370163829]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="PlayerNameLabel" type="Label" parent="MarginContainer/UI" unique_id=1870574803]
+[node name="PlayerNameLabel" type="Label" parent="VBoxContainer/MarginContainer/UI" unique_id=1870574803]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -53,7 +116,7 @@ text = "PLAYER's Turn!"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="QuestionLabel" type="Label" parent="MarginContainer/UI" unique_id=1799551330]
+[node name="QuestionLabel" type="Label" parent="VBoxContainer/MarginContainer/UI" unique_id=1799551330]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
@@ -62,26 +125,31 @@ theme_override_font_sizes/font_size = 40
 text = "Name 3 programming languages."
 autowrap_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/UI" unique_id=1190553505]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer/UI" unique_id=1190553505]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
-[node name="CardContainer" type="GridContainer" parent="MarginContainer/UI/ScrollContainer" unique_id=1851988848]
+[node name="CardContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/UI/ScrollContainer" unique_id=1851988848]
 unique_name_in_owner = true
 layout_direction = 2
 layout_mode = 2
 size_flags_vertical = 3
 columns = 4
 
-[node name="PassBombButton" type="Button" parent="MarginContainer/UI" unique_id=2015534284]
+[node name="PassBombButton" type="Button" parent="VBoxContainer" unique_id=2015534284]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("3_xq6wo")
 theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_kc8ui")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bs6l1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pk08u")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_wqvko")
+theme_override_styles/focus = SubResource("StyleBoxFlat_cdx1q")
 text = "PASS BOMB"
 
 [node name="GameOverOverlay" type="ColorRect" parent="." unique_id=1390497008]
@@ -138,6 +206,7 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 theme_override_fonts/font = ExtResource("4_kc8ui")
 theme_override_font_sizes/font_size = 32
 text = "LEADERBOARD"
@@ -165,7 +234,7 @@ text = "Main Menu"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1508617464]
 
-[connection signal="pressed" from="MarginContainer/UI/PassBombButton" to="." method="_on_pass_bomb_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/PassBombButton" to="." method="_on_pass_bomb_button_pressed"]
 [connection signal="pressed" from="GameOverOverlay/MarginContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="GameOverOverlay/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]
