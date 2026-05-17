@@ -8,12 +8,14 @@ extends Control
 @onready var pass_bomb_button = %PassBombButton
 @onready var game_over_overlay = $GameOverOverlay
 @onready var loser_label = %LoserLabel
+@onready var leaderboard_label = %LeaderBoardLabel
 
 # Preload your new custom scene
 const CardButtonScene = preload("res://src/card_button.tscn")
 
 var master_questions: Array = []
 var active_questions: Array = []
+var turn_start_time: int = 0
 
 func _ready():
 	load_questions()
@@ -79,6 +81,7 @@ func start_turn():
 		GameState.is_next_turn_double = false # Reset the trap
 	
 	question_label.text = q
+	turn_start_time = Time.get_ticks_msec()
 	
 	# Update the UI every time a turn starts
 	update_card_ui()
@@ -91,13 +94,23 @@ func _process(_delta):
 
 # Connected to the PassBombButton
 func _on_pass_bomb_button_pressed():
-	# 1. Give them credit for answering
+	var current_player = GameState.players[GameState.current_player_index]
+	# Give them credit for answering
+	# 1. Figure out how many seconds they took
+	var time_taken_seconds = (Time.get_ticks_msec() - turn_start_time) / 1000.0
+	
+	# 2. Calculate points: Base 50 pts, minus 5 pts for every second taken. 
+	# Use max() to ensure they never get less than 10 points for a correct answer.
+	var points_earned = max(10, 50 - floor(time_taken_seconds) * 5)
+	current_player["score"] += points_earned
+	# Print to console to verify the math while testing
+	print(current_player["name"] + " took " + str(time_taken_seconds) + "s and earned " + str(points_earned) + " pts!")
 	GameState.register_correct_answer()
 	
-	# 2. Move to the next player
+	# 3. Move to the next player
 	GameState.next_player()
 	
-	# 3. Start the next turn
+	# 4. Start the next turn
 	start_turn()
 
 func _on_bomb_timer_timeout():
@@ -107,13 +120,26 @@ func _on_bomb_timer_timeout():
 func explode_bomb():
 	var loser = GameState.players[GameState.current_player_index]
 	
-	# Hide the gameplay UI elements so they can't be clicked
 	pass_bomb_button.hide()
 	card_container.hide()
 	question_label.hide()
 	
-	# Update and show the Game Over overlay
 	loser_label.text = loser["name"] + " BLEW UP!"
+	
+	# --- NEW LEADERBOARD LOGIC ---
+	var scores_text = ""
+	
+	loser.score = 0
+	# Sort players by score (highest to lowest) using a custom lambda function
+	var sorted_players = GameState.players.duplicate()
+	sorted_players.sort_custom(func(a, b): return a["score"] > b["score"])
+	
+	for player in sorted_players:
+		scores_text += player["name"] + ": " + str(int(player["score"])) + " pts\n"
+	
+	leaderboard_label.text = scores_text
+	# -----------------------------
+	
 	game_over_overlay.show()
 
 # Connected to the PlayAgainButton
