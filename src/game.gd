@@ -169,9 +169,10 @@ func _on_play_again_button_pressed():
 
 	# Hide the overlay and restore the gameplay UI
 	game_over_overlay.hide()
-	pass_bomb_button.show()
-	card_container.show()
+	player_label.show()
 	question_label.show()
+	card_container.show()
+	pass_bomb_button.show()
 	
 	# Kick off a fresh round
 	start_new_round()
