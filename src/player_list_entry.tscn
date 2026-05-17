@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dk5q8jhc82bdm"]
+
+[ext_resource type="FontFile" uid="uid://brs7yw1pesgg2" path="res://assets/Montserrat-Medium.ttf" id="1_kk2t8"]
+
+[node name="PlayerListEntry" type="Label" unique_id=264386041]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_kk2t8")
+theme_override_font_sizes/font_size = 32
+autowrap_mode = 3

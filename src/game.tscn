@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://b3j0l1wrankxw"]
 
 [ext_resource type="Script" uid="uid://dbfvsa1dm88wv" path="res://src/game.gd" id="1_7uq6d"]
+[ext_resource type="Texture2D" uid="uid://bmw8mc8wwwon2" path="res://assets/bg.png" id="2_3msxb"]
+[ext_resource type="FontFile" uid="uid://dur4q3pm6lysi" path="res://assets/Montserrat-Bold.ttf" id="3_xq6wo"]
+[ext_resource type="FontFile" uid="uid://brs7yw1pesgg2" path="res://assets/Montserrat-Medium.ttf" id="4_kc8ui"]
 
 [node name="GameManager" type="Control" unique_id=1797797504]
 layout_mode = 3
@@ -11,31 +14,75 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7uq6d")
 
-[node name="UI" type="VBoxContainer" parent="." unique_id=2082391077]
+[node name="Background" type="TextureRect" parent="." unique_id=1905598837]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_3msxb")
 
-[node name="PlayerNameLabel" type="Label" parent="UI" unique_id=1870574803]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1748304827]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="UI" type="VBoxContainer" parent="MarginContainer" unique_id=2082391077]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Margin" type="Control" parent="MarginContainer/UI" unique_id=370163829]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="QuestionLabel" type="Label" parent="UI" unique_id=1799551330]
+[node name="PlayerNameLabel" type="Label" parent="MarginContainer/UI" unique_id=1870574803]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_xq6wo")
+theme_override_font_sizes/font_size = 48
+text = "PLAYER's Turn!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="QuestionLabel" type="Label" parent="MarginContainer/UI" unique_id=1799551330]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_kc8ui")
+theme_override_font_sizes/font_size = 40
+text = "Name 3 programming languages."
 autowrap_mode = 2
 
-[node name="PassBombButton" type="Button" parent="UI" unique_id=2015534284]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/UI" unique_id=1190553505]
 layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="CardContainer" type="GridContainer" parent="MarginContainer/UI/ScrollContainer" unique_id=1851988848]
+unique_name_in_owner = true
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 3
+columns = 4
+
+[node name="PassBombButton" type="Button" parent="MarginContainer/UI" unique_id=2015534284]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_xq6wo")
+theme_override_font_sizes/font_size = 32
 text = "PASS BOMB"
-
-[node name="CardContainer" type="HBoxContainer" parent="UI" unique_id=659007400]
-layout_mode = 2
-
-[node name="BombTimer" type="Timer" parent="." unique_id=1508934835]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1508617464]
 
 [node name="GameOverOverlay" type="ColorRect" parent="." unique_id=1390497008]
 visible = false
@@ -47,31 +94,57 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.8)
 
-[node name="CenterContainer" type="CenterContainer" parent="GameOverOverlay" unique_id=969929769]
+[node name="MarginContainer" type="MarginContainer" parent="GameOverOverlay" unique_id=1567464261]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/CenterContainer" unique_id=1039312297]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverOverlay/MarginContainer" unique_id=1039312297]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LoserLabel" type="Label" parent="GameOverOverlay/CenterContainer/VBoxContainer" unique_id=1829243437]
+[node name="Margin" type="Control" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1389573914]
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
-text = "PLAYER BLEW UP!"
 
-[node name="PlayAgainButton" type="Button" parent="GameOverOverlay/CenterContainer/VBoxContainer" unique_id=1780612786]
+[node name="LoserLabel" type="Label" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1829243437]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 128)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_xq6wo")
+theme_override_font_sizes/font_size = 48
+text = "PLAYER BLEW UP!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="PlayAgainButton" type="Button" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=1780612786]
+custom_minimum_size = Vector2(512, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_xq6wo")
+theme_override_font_sizes/font_size = 32
 text = "Play Again"
 
-[node name="MainMenuButton" type="Button" parent="GameOverOverlay/CenterContainer/VBoxContainer" unique_id=66563313]
+[node name="MainMenuButton" type="Button" parent="GameOverOverlay/MarginContainer/VBoxContainer" unique_id=66563313]
+custom_minimum_size = Vector2(512, 64)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_xq6wo")
+theme_override_font_sizes/font_size = 32
 text = "Main Menu"
 
-[connection signal="pressed" from="UI/PassBombButton" to="." method="_on_pass_bomb_button_pressed"]
+[node name="BombTimer" type="Timer" parent="." unique_id=1508934835]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1508617464]
+
+[connection signal="pressed" from="MarginContainer/UI/PassBombButton" to="." method="_on_pass_bomb_button_pressed"]
+[connection signal="pressed" from="GameOverOverlay/MarginContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="GameOverOverlay/MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="timeout" from="BombTimer" to="." method="_on_bomb_timer_timeout"]
-[connection signal="pressed" from="GameOverOverlay/CenterContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
-[connection signal="pressed" from="GameOverOverlay/CenterContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

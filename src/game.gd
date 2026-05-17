@@ -1,19 +1,19 @@
 extends Control
 
-@onready var question_label = $UI/QuestionLabel
-@onready var player_label = $UI/PlayerNameLabel
+@onready var question_label = %QuestionLabel
+@onready var player_label = %PlayerNameLabel
 @onready var bomb_timer = $BombTimer
 @onready var tick_audio = $AudioStreamPlayer
-@onready var card_container = $UI/CardContainer
+@onready var card_container = %CardContainer
+@onready var pass_bomb_button = %PassBombButton
 @onready var game_over_overlay = $GameOverOverlay
-@onready var loser_label = $GameOverOverlay/CenterContainer/VBoxContainer/LoserLabel
-@onready var pass_bomb_button = $UI/PassBombButton
+@onready var loser_label = %LoserLabel
 
 # Preload your new custom scene
 const CardButtonScene = preload("res://src/card_button.tscn")
 
-# Mock Database
-var questions = []
+var master_questions: Array = []
+var active_questions: Array = []
 
 func _ready():
 	load_questions()
@@ -23,13 +23,15 @@ func load_questions():
 	if not FileAccess.file_exists("res://questions.json"):
 		push_error("Questions file not found!")
 		return
-		
+	
 	var file = FileAccess.open("res://questions.json", FileAccess.READ)
 	var content = file.get_as_text()
 	var parsed_data = JSON.parse_string(content)
 	
 	if parsed_data is Array:
-		questions = parsed_data
+		master_questions = parsed_data
+		# Fill the active pool for the very first time
+		active_questions = master_questions.duplicate() 
 	else:
 		push_error("Error parsing JSON: Ensure it's a valid array.")
 
@@ -48,13 +50,40 @@ func start_turn():
 	var current_player = GameState.players[GameState.current_player_index]
 	player_label.text = current_player["name"] + "'s Turn!"
 	
-	var q = questions.pick_random()
+	# If the pool is empty, refill it from the master list!
+	if active_questions.is_empty():
+		active_questions = master_questions.duplicate()
+	
+	# Pick a random question from the remaining pool
+	var q = active_questions.pick_random()
+	
+	# Immediately erase it from the pool so it doesn't repeat
+	active_questions.erase(q)
+	
+	if GameState.is_next_turn_double:
+		# Set up a RegEx pattern to find digits
+		var regex = RegEx.new()
+		regex.compile("\\d+") # This pattern matches any whole number
+		
+		# Search the question string for the first match
+		var reg_match = regex.search(q)
+		
+		if reg_match:
+			var original_num_str = reg_match.get_string()
+			var doubled_num = original_num_str.to_int() * 2
+			
+			# Replace the old number with the doubled number
+			q = q.replace(original_num_str, str(doubled_num))
+			
+		q += "\n(DOUBLE CHALLENGE!)"
+		GameState.is_next_turn_double = false # Reset the trap
+	
 	question_label.text = q
 	
 	# Update the UI every time a turn starts
 	update_card_ui()
 
-func _process(delta):
+func _process(_delta):
 	if not bomb_timer.is_stopped():
 		# Increase the pitch/speed of the ticking as time runs out to build tension
 		var time_left_ratio = bomb_timer.time_left / bomb_timer.wait_time
@@ -117,7 +146,7 @@ func update_card_ui():
 	# 1. Clear out the old buttons from the previous turn
 	for child in card_container.get_children():
 		child.queue_free()
-		
+	
 	var current_player = GameState.players[GameState.current_player_index]
 	
 	# 2. Instantiate a new button for every card in the player's inventory
@@ -147,7 +176,7 @@ func play_card(card_type: String):
 	# Validation check
 	if not card_type in current_player["cards"]:
 		return 
-		
+	
 	# Consume the card
 	current_player["cards"].erase(card_type)
 	
@@ -160,15 +189,14 @@ func play_card(card_type: String):
 		"time_thief":
 			# Shave 5 seconds off the timer, but don't let it go below 1 second
 			bomb_timer.start(max(1.0, bomb_timer.time_left - 5.0))
+			GameState.next_player()
+			start_turn()
 		"reverse":
 			# Flip direction and immediately pass to the previous person
 			GameState.play_direction *= -1
 			GameState.next_player()
 			start_turn()
 		"double":
-			# Quick MVP string manipulation
-			question_label.text = question_label.text.replace("3", "6")
-			question_label.text += "\n(DOUBLE CHALLENGE!)"
-
-	# You'll want to call a function here to refresh your Card UI 
-	# update_card_ui()
+			GameState.is_next_turn_double = true
+			GameState.next_player()
+			start_turn()

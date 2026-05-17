@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://cjb37l4qn5mxf"]
 
 [ext_resource type="Script" uid="uid://dcld5o2u8skjt" path="res://src/card_button.gd" id="1_vr8r1"]
+[ext_resource type="FontFile" uid="uid://dur4q3pm6lysi" path="res://assets/Montserrat-Bold.ttf" id="1_y3ddo"]
 
 [node name="CardButton" type="Button" unique_id=749838351]
-custom_minimum_size = Vector2(100, 150)
+custom_minimum_size = Vector2(169, 258)
 offset_right = 8.0
 offset_bottom = 8.0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("1_y3ddo")
+theme_override_font_sizes/font_size = 32
+autowrap_mode = 2
 script = ExtResource("1_vr8r1")

@@ -3,6 +3,7 @@ extends Node
 var players: Array = [] 
 var current_player_index: int = 0
 var play_direction: int = 1 
+var is_next_turn_double: bool = false
 
 const CARDS = ["shield", "time_thief", "reverse", "double"]
 const ANSWERS_NEEDED = 3
@@ -15,7 +16,7 @@ func next_player():
 		current_player_index = 0
 	elif current_player_index < 0:
 		current_player_index = players.size() - 1
-		
+	
 	return players[current_player_index]
 
 # Call this when the player answers correctly
