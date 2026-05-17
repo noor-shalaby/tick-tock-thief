@@ -85,5 +85,6 @@ func _on_add_player_button_pressed() -> void:
 # Shuffles seating alignment and transfers context over to the action arena map
 func _on_start_game_button_pressed() -> void:
 	GameState.players.shuffle()
-	GameState.current_player_index = 0 
+	GameState.current_player_index = 0
+	AudioManager.play_sfx()
 	SceneTransition.change_scene(GameScenePath)

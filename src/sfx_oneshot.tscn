@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://neh0al1bepdt"]
+
+[ext_resource type="AudioStream" uid="uid://h8a0u50681lx" path="res://assets/bomb-arm.wav" id="1_o6y2g"]
+
+[node name="SFXOneShot" type="AudioStreamPlayer" unique_id=1947943179]
+stream = ExtResource("1_o6y2g")
+autoplay = true

@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bmw8mc8wwwon2" path="res://assets/bg.png" id="2_3msxb"]
 [ext_resource type="FontFile" uid="uid://dur4q3pm6lysi" path="res://assets/Montserrat-Bold.ttf" id="3_xq6wo"]
 [ext_resource type="FontFile" uid="uid://brs7yw1pesgg2" path="res://assets/Montserrat-Medium.ttf" id="4_kc8ui"]
+[ext_resource type="AudioStream" uid="uid://c45bl33pjn1yv" path="res://assets/bomb-tick.wav" id="5_bs6l1"]
+[ext_resource type="AudioStream" uid="uid://cx3b4elnej01k" path="res://assets/bomb-explosion.wav" id="6_pk08u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kc8ui"]
 content_margin_left = 4.0
@@ -200,7 +202,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7uq6d")
-metadata/_edit_horizontal_guides_ = [864.0, 141.0]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1444937281]
 layer = -1
@@ -381,7 +382,14 @@ text = "Main Menu"
 [node name="BombTimer" type="Timer" parent="." unique_id=1508934835]
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1508617464]
+[node name="BombTick" type="AudioStreamPlayer" parent="." unique_id=1508617464]
+stream = ExtResource("5_bs6l1")
+pitch_scale = 0.5
+
+[node name="BombExplosion" type="AudioStreamPlayer" parent="." unique_id=1804073147]
+stream = ExtResource("6_pk08u")
+volume_db = 10.0
+pitch_scale = 0.8
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PassBombButton" to="." method="_on_pass_bomb_button_pressed"]
 [connection signal="pressed" from="GameOverOverlay/VBoxContainer/VBoxContainer2/PlayAgainButton" to="." method="_on_play_again_button_pressed"]

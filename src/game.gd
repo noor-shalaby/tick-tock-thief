@@ -3,6 +3,7 @@ extends Control
 
 # Constants
 const CardButtonScene: PackedScene = preload("uid://cjb37l4qn5mxf")
+const PanicTickSound: AudioStream = preload("uid://bqnpy0jx03mhg")
 const MainMenuScenePath: String = "uid://rudhctu0u6x5"
 const QuestionsFilepath: String = "res://questions.json"
 
@@ -12,13 +13,16 @@ var active_questions: Array = []
 var turn_start_time: int = 0
 var shake_strength: float = 0.0
 var pulse_tween: Tween
+var original_tick_stream: AudioStream
+var is_panic_mode: bool = false
 
 # Node References
 @onready var scene_tree: SceneTree = get_tree()
 @onready var question_label: Label = %QuestionLabel
 @onready var player_label: Label = %PlayerNameLabel
 @onready var bomb_timer: Timer = $BombTimer
-@onready var tick_audio: AudioStreamPlayer = $AudioStreamPlayer
+@onready var tick_audio: AudioStreamPlayer = $BombTick
+@onready var explosion_audio: AudioStreamPlayer = $BombExplosion
 @onready var card_container: GridContainer = %CardContainer
 @onready var pass_bomb_button: Button = %PassBombButton
 @onready var game_over_overlay: MarginContainer = $GameOverOverlay
@@ -36,15 +40,29 @@ func _ready() -> void:
 	start_pulse_animation()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Speed up ticking audio and button heartbeat as timer runs down
 	if not bomb_timer.is_stopped():
-		var time_left_ratio: float = bomb_timer.time_left / bomb_timer.wait_time
-		var current_pitch: float = lerp(2.0, 1.0, time_left_ratio)
+		# Swap to the panic file exactly at or under 1.12 seconds left
+		if bomb_timer.time_left <= 1.12 and not is_panic_mode:
+			is_panic_mode = true
+			tick_audio.stream = PanicTickSound
+			tick_audio.play() # Force player to reload with the new sound stream
+		
+		# 1. Calculate how much time has passed (0.0 at start, 1.0 at explosion)
+		var progress: float = 1.0 - (bomb_timer.time_left / bomb_timer.wait_time)
+		
+		# 2. Apply a cubic curve (progress squared or cubed)
+		# This keeps the pitch low early on and spikes it sharply at the very end
+		var curved_progress: float = pow(progress, 3)
+		
+		# 3. Scale between a clean 1.0x and a tense 1.6x speed
+		var current_pitch: float = lerp(1.0, 1.6, curved_progress)
+		
 		tick_audio.pitch_scale = current_pitch
 		if pulse_tween and pulse_tween.is_valid():
 			pulse_tween.set_speed_scale(current_pitch)
-			
+	
 	# Generate screen shake vector on Game Over
 	if shake_strength > 0.1:
 		var random_offset: Vector2 = Vector2(
@@ -52,7 +70,6 @@ func _process(delta: float) -> void:
 			randf_range(-shake_strength, shake_strength)
 		)
 		position = random_offset
-		shake_strength = lerp(shake_strength, 0.0, 10.0 * delta)
 	else:
 		position = Vector2.ZERO
 		shake_strength = 0.0
@@ -66,7 +83,7 @@ func load_questions() -> void:
 	if not FileAccess.file_exists(QuestionsFilepath):
 		push_error("Questions file not found!")
 		return
-		
+	
 	var file: FileAccess = FileAccess.open(QuestionsFilepath, FileAccess.READ)
 	var content: String = file.get_as_text()
 	var parsed_data: Variant = JSON.parse_string(content)
@@ -81,6 +98,15 @@ func load_questions() -> void:
 func start_new_round() -> void:
 	var bomb_time: int = randi_range(20, 45)
 	bomb_timer.start(bomb_time)
+	
+	# Cache the default sound layout the very first time a round boots
+	if not original_tick_stream:
+		original_tick_stream = tick_audio.stream
+		
+	# Reset back to the normal audio file and clean the flag
+	tick_audio.stream = original_tick_stream
+	is_panic_mode = false
+	
 	tick_audio.play()
 	tick_audio.pitch_scale = 1.0 
 	start_turn()
@@ -161,7 +187,15 @@ func play_card(card_type: String) -> void:
 
 func explode_bomb() -> void:
 	var loser: Dictionary = GameState.players[GameState.current_player_index]
-	shake_strength = 1000.0
+	
+	explosion_audio.play()
+	shake_strength = 256.0
+	# Create a precise timeline tween for the shake duration
+	var original_length: float = explosion_audio.stream.get_length()
+	var dynamic_duration: float = original_length / explosion_audio.pitch_scale
+	var shake_tween: Tween = create_tween()
+	shake_tween.tween_property(self, "shake_strength", 0.0, dynamic_duration)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
 	player_label.hide()
 	question_label.hide()
@@ -220,6 +254,11 @@ func update_card_ui() -> void:
 		btn.card_played.connect(_on_card_played)
 
 
+func _on_card_played(card_type: String) -> void:
+	play_card(card_type)
+	update_card_ui()
+
+
 func spawn_score_popup(points: int) -> void:
 	var popup: Label = Label.new()
 	popup.text = "+" + str(points) + " pts!"
@@ -271,6 +310,8 @@ func _on_bomb_timer_timeout() -> void:
 
 
 func _on_play_again_button_pressed() -> void:
+	AudioManager.play_sfx()
+	
 	for player: Dictionary in GameState.players:
 		player["cards"].clear()
 		player["score"] = 0
@@ -294,8 +335,3 @@ func _on_play_again_button_pressed() -> void:
 func _on_main_menu_button_pressed() -> void:
 	GameState.players.clear()
 	SceneTransition.change_scene(MainMenuScenePath)
-
-
-func _on_card_played(card_type: String) -> void:
-	play_card(card_type)
-	update_card_ui()

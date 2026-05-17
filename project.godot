@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+AudioManager="*uid://cety3yqrv06c"
 GameState="*uid://0cq3a7ic70x8"
 SceneTransition="*uid://v6dxjchhdx0q"
 

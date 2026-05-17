@@ -97,7 +97,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_guuao")
-metadata/_edit_horizontal_guides_ = [844.0, 145.0]
 
 [node name="Background" type="TextureRect" parent="." unique_id=1310234498]
 layout_mode = 1
