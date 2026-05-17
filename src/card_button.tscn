@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://dur4q3pm6lysi" path="res://assets/Montserrat-Bold.ttf" id="1_y3ddo"]
 
 [node name="CardButton" type="Button" unique_id=749838351]
-custom_minimum_size = Vector2(169, 258)
+custom_minimum_size = Vector2(161, 241.5)
 offset_right = 8.0
 offset_bottom = 8.0
 size_flags_vertical = 8

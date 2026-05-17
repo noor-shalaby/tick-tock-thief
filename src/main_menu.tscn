@@ -26,8 +26,10 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32mut"]
@@ -36,8 +38,10 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kojm2"]
@@ -46,8 +50,10 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.225, 0.225, 0.225, 0.6)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6l5d7"]
@@ -56,8 +62,10 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qufii"]
@@ -71,8 +79,10 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-corner_radius_top_left = 16
-corner_radius_top_right = 16
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 corner_detail = 5
 expand_margin_left = 2.0
 expand_margin_top = 2.0
@@ -99,32 +109,29 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_bq8pk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1070214722]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=546153664]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=546153664]
-layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer" unique_id=799191007]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=799191007]
 custom_minimum_size = Vector2(0, 500)
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="Margin" type="Control" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=34488143]
-custom_minimum_size = Vector2(0, 256)
+[node name="Margin" type="Control" parent="MarginContainer/VBoxContainer" unique_id=34488143]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
-[node name="Title" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=1814288206]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1814288206]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -134,12 +141,12 @@ theme_override_font_sizes/font_size = 64
 text = "TICK-TOCK THIEF"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=568804487]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=568804487]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 
-[node name="NameInput" type="LineEdit" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=348287152]
+[node name="NameInput" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=348287152]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(512, 64)
 layout_mode = 2
@@ -150,14 +157,15 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_1wfgh")
 placeholder_text = "Enter Player Name"
 backspace_deletes_composite_character_enabled = true
 
-[node name="AddPlayerButton" type="Button" parent="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=40557062]
+[node name="AddPlayerButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=40557062]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_6w7d7")
 theme_override_font_sizes/font_size = 48
 text = "+"
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer" unique_id=34369022]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=34369022]
+custom_minimum_size = Vector2(0, 474)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 32
@@ -165,22 +173,22 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 32
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=848383128]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=848383128]
 layout_mode = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 
-[node name="PlayerList" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/ScrollContainer" unique_id=1670698857]
+[node name="PlayerList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/ScrollContainer" unique_id=1670698857]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="StartGameButton" type="Button" parent="VBoxContainer" unique_id=130500334]
+[node name="StartGameButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=130500334]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 2
 theme_override_fonts/font = ExtResource("5_1wfgh")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_1jpog")
@@ -190,5 +198,5 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_6l5d7")
 theme_override_styles/focus = SubResource("StyleBoxFlat_qufii")
 text = "START BOMB"
 
-[connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AddPlayerButton" to="." method="_on_add_player_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/AddPlayerButton" to="." method="_on_add_player_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/StartGameButton" to="." method="_on_start_game_button_pressed"]
