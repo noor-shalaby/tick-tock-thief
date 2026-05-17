@@ -41,16 +41,37 @@ func _on_add_player_button_pressed():
 	
 	name_input.text = "" # Clear input for the next name
 	
-	# Enable start if we have enough players
-	if GameState.players.size() >= 2:
+	# Enable start if we have enough players and pop it!
+	if GameState.players.size() >= 2 and start_button.disabled:
 		start_button.disabled = false
+		
+		# Calculate pivot offset from its actual size
+		start_button.pivot_offset = start_button.size / 2.0
+		
+		var btn_tween = create_tween()
+		
+		# 1. Swell up to 1.2x scale from its current 1.0 scale (No sudden snap!)
+		btn_tween.tween_property(start_button, "scale", Vector2(1.2, 1.2), 0.15)\
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			
+		# 2. Bounce back down to normal 1.0 scale
+		btn_tween.tween_property(start_button, "scale", Vector2.ONE, 0.2)\
+			.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func update_player_list_ui(player_name: String):
 	# Dynamically create a label for the list
 	var label = PlayerListEntryScene.instantiate()
 	label.text = "- " + player_name
-	# Optional: Align center or adjust font size here
+	label.visible_ratio = 0.0
 	player_list.add_child(label)
+	
+	var duration = max(0.15, player_name.length() * 0.04)
+	
+	# Type it out!
+	var type_tween = create_tween()
+	type_tween.tween_property(label, "visible_ratio", 1.0, duration)\
+		.set_trans(Tween.TRANS_LINEAR)
+
 
 # Connected to the StartGameButton's 'pressed' signal
 func _on_start_game_button_pressed():

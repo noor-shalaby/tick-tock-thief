@@ -202,11 +202,15 @@ grow_vertical = 2
 script = ExtResource("1_7uq6d")
 metadata/_edit_horizontal_guides_ = [864.0, 141.0]
 
-[node name="Background" type="TextureRect" parent="." unique_id=1905598837]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1444937281]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="CanvasLayer" unique_id=1905598837]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -600.0
+offset_right = 600.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_3msxb")
@@ -375,6 +379,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_tqu6b")
 text = "Main Menu"
 
 [node name="BombTimer" type="Timer" parent="." unique_id=1508934835]
+one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1508617464]
 
